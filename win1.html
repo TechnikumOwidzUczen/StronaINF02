@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INF.02 2025 styczeń - Windows Server</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .task-section {
+            background-color: white;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .task-number {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .task-content {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+        }
+        
+        .solution-steps {
+            margin-left: 20px;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background-color: #f0f0f0;
+            border-left: 4px solid #2c3e50;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+        
+        .note {
+            background-color: #fffde7;
+            border-left: 4px solid #ffd600;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            margin: 15px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Egzamin zawodowy INF.02 - styczeń 2025</h1>
+        <h2>Zadanie: Konfiguracja Windows Server</h2>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Pełna treść zadania</div>
+        
+        <div class="task-content">
+            <strong>7. Skonfiguruj serwer z zainstalowanym systemem operacyjnym Windows:</strong><br><br>
+            − skonfiguruj interfejs sieciowy serwera podłączony do rutera:<br>
+            &nbsp;&nbsp;‒ nazwa połączenia: WAN<br>
+            &nbsp;&nbsp;‒ adres IP oraz pozostałe parametry konfiguracji sieciowej: uzyskiwane automatycznie<br>
+            &nbsp;&nbsp;‒ odśwież adres IP, w celu pobrania adresu zarezerwowanego w ruterze<br><br>
+            − skonfiguruj interfejs sieciowy serwera podłączony do przełącznika:<br>
+            &nbsp;&nbsp;‒ nazwa połączenia: LAN 1<br>
+            &nbsp;&nbsp;‒ adres IP: 192.168.1.1/25<br>
+            &nbsp;&nbsp;‒ brama domyślna: brak<br>
+            &nbsp;&nbsp;‒ DNS: 192.168.1.1<br><br>
+            − zainstaluj na serwerze usługę DNS i IIS oraz skonfiguruj według zaleceń:<br>
+            &nbsp;&nbsp;− utwórz nową strefę wyszukiwania do przodu: egzamin.local<br>
+            &nbsp;&nbsp;− ustaw w strefie egzamin.local nowy rekord hosta o nazwie www, powiązany z adresem IP interfejsu sieciowego LAN 1<br>
+            &nbsp;&nbsp;− utwórz na dysku C:\ folder o nazwie www<br>
+            &nbsp;&nbsp;− zainstaluj program 7-Zip, instalator dostępny jest na nośniku opisanym DOKUMENTACJA/PROGRAMY<br>
+            &nbsp;&nbsp;− rozpakuj do folderu www archiwum strona_testowa.7z oraz skopiuj plik zegarek.jpg. Pliki są dostępne w folderze PLIKI na nośniku opisanym DOKUMENTACJA/PROGRAMY<br>
+            &nbsp;&nbsp;− dodaj i skonfiguruj witrynę internetową:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;‒ nazwa witryny: strona_testowa<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;‒ ścieżka do plików strony: C:\www<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;‒ powiązanie tylko z protokołem HTTP, interfejsem sieciowym LAN 1 na porcie 80 i nazwą hosta www.egzamin.local<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;‒ dokument domyślny: strona_testowa.html<br><br>
+            <strong>8. Na serwerze za pomocą poleceń systemowych wykonaj test komunikacji serwera ze stacją roboczą oraz interfejsem LAN rutera. Wyświetl adres IP interfejsu WAN serwera. W razie potrzeby na stacji roboczej zmień odpowiednio ustawienia zapory sieciowej.</strong><br><br>
+            UWAGA: Po wykonaniu testów połączenia zgłoś Przewodniczącemu ZN – przez podniesienie ręki – gotowość do przeprowadzenia ponownego sprawdzenia komunikacji serwera z ruterem oraz stacją roboczą. Sprawdzenie wykonaj w obecności egzaminatora. Na ekranie serwera wyświetl automatycznie nadany adres IP
+        </div>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Rozwiązanie zadania 7</div>
+        
+        <div class="solution-steps">
+            <div class="step">
+                <strong>Konfiguracja interfejsu sieciowego WAN:</strong>
+                <ol>
+                    <li>Otwórz <strong>Panel sterowania > Centrum sieci i udostępniania > Zmień ustawienia karty sieciowej</strong></li>
+                    <li>Kliknij prawym przyciskiem na odpowiedni interfejs i wybierz <strong>Właściwości</strong></li>
+                    <li>Zmień nazwę połączenia na <strong>WAN</strong></li>
+                    <li>Wybierz <strong>Protokół internetowy w wersji 4 (TCP/IPv4)</strong> i kliknij <strong>Właściwości</strong></li>
+                    <li>Wybierz <strong>Uzyskaj adres IP automatycznie</strong> i <strong>Uzyskaj adres serwera DNS automatycznie</strong></li>
+                    <li>Kliknij <strong>OK</strong> aby zapisać zmiany</li>
+                    <li>Aby odświeżyć adres IP, otwórz wiersz polecenia jako administrator i wykonaj:
+                        <div class="code-block">
+                            ipconfig /release<br>
+                            ipconfig /renew
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Konfiguracja interfejsu sieciowego LAN 1:</strong>
+                <ol>
+                    <li>Otwórz <strong>Panel sterowania > Centrum sieci i udostępniania > Zmień ustawienia karta sieciowej</strong></li>
+                    <li>Kliknij prawym przyciskiem na odpowiedni interfejs i wybierz <strong>Właściwości</strong></li>
+                    <li>Zmień nazwę połączenia na <strong>LAN 1</strong></li>
+                    <li>Wybierz <strong>Protokół internetowy w wersji 4 (TCP/IPv4)</strong> i kliknij <strong>Właściwości</strong></li>
+                    <li>Wybierz <strong>Użyj następującego adresu IP</strong> i wprowadź:
+                        <ul>
+                            <li>Adres IP: <strong>192.168.1.1</strong></li>
+                            <li>Maska podsieci: <strong>255.255.255.128</strong> (lub prefiks /25)</li>
+                            <li>Brama domyślna: <strong>pozostaw puste</strong></li>
+                            <li>Preferowany serwer DNS: <strong>192.168.1.1</strong></li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>OK</strong> aby zapisać zmiany</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Instalacja usług DNS i IIS:</strong>
+                <ol>
+                    <li>Otwórz <strong>Menedżer serwera > Dodaj role i funkcje</strong></li>
+                    <li>Wybierz <strong>Instalacja oparta na rolach lub funkcjach</strong> i kliknij <strong>Dalej</strong></li>
+                    <li>Wybierz bieżący serwer i kliknij <strong>Dalej</strong></li>
+                    <li>Zaznacz role:
+                        <ul>
+                            <li><strong>Serwer DNS</strong></li>
+                            <li><strong>Serwer sieci Web (IIS)</strong></li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>Dalej</strong> aż dojdziesz do podsumowania, a następnie <strong>Zainstaluj</strong></li>
+                    <li>Poczekaj na zakończenie instalacji i kliknij <strong>Zamknij</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Konfiguracja strefy DNS egzamin.local:</strong>
+                <ol>
+                    <li>Otwórz <strong>Menedżer DNS</strong> z menu Narzędzia administracyjne</li>
+                    <li>Rozwiń serwer, kliknij prawym przyciskiem na <strong>Strefy wyszukiwania do przodu</strong> i wybierz <strong>Nowa strefa...</strong></li>
+                    <li>Kliknij <strong>Dalej</strong>, wybierz <strong>Strefa podstawowa</strong> i kliknij <strong>Dalej</strong></li>
+                    <li>Wprowadź nazwę strefy: <strong>egzamin.local</strong> i kliknij <strong>Dalej</strong></li>
+                    <li>Wybierz <strong>Utwórz nowy plik</strong> i kliknij <strong>Dalej</strong></li>
+                    <li>Wybierz <strong>Nie zezwalaj na dynamiczne aktualizacje</strong> i kliknij <strong>Dalej</strong>, a następnie <strong>Zakończ</strong></li>
+                    <li>Kliknij prawym przyciskiem na nową strefę i wybierz <strong>Nowy host (A lub AAAA)...</strong></li>
+                    <li>Wprowadź:
+                        <ul>
+                            <li>Nazwa: <strong>www</strong></li>
+                            <li>Adres IP: <strong>192.168.1.1</strong></li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>Dodaj hosta</strong>, a następnie <strong>OK</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Przygotowanie folderu www i instalacja 7-Zip:</strong>
+                <ol>
+                    <li>Otwórz <strong>Eksplorator plików</strong> i przejdź do dysku <strong>C:\</strong></li>
+                    <li>Kliknij prawym przyciskiem, wybierz <strong>Nowy > Folder</strong> i nadaj mu nazwę <strong>www</strong></li>
+                    <li>Zainstaluj program <strong>7-Zip</strong> z nośnika DOKUMENTACJA/PROGRAMY</li>
+                    <li>Otwórz 7-Zip File Manager, znajdź plik <strong>strona_testowa.7z</strong> na nośniku i rozpakuj go do folderu <strong>C:\www</strong></li>
+                    <li>Skopiuj plik <strong>zegarek.jpg</strong> z folderu PLIKI na nośniku do folderu <strong>C:\www</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Konfiguracja witryny internetowej w IIS:</strong>
+                <ol>
+                    <li>Otwórz <strong>Menedżer Internet Information Services (IIS)</strong></li>
+                    <li>Rozwiń serwer, kliknij prawym przyciskiem na <strong>Witryny</strong> i wybierz <strong>Dodaj witrynę internetową...</strong></li>
+                    <li>Wprowadź:
+                        <ul>
+                            <li>Nazwa witryny: <strong>strona_testowa</strong></li>
+                            <li>Ścieżka fizyczna: <strong>C:\www</strong></li>
+                            <li>Powiązanie: 
+                                <ul>
+                                    <li>Typ: <strong>http</strong></li>
+                                    <li>Adres IP: <strong>192.168.1.1</strong> (LAN 1)</li>
+                                    <li>Port: <strong>80</strong></li>
+                                    <li>Nazwa hosta: <strong>www.egzamin.local</strong></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>OK</strong></li>
+                    <li>W Menedżerze IIS wybierz nową witrynę, otwórz <strong>Dokument domyślny</strong></li>
+                    <li>Upewnij się, że <strong>strona_testowa.html</strong> jest na liście, lub dodaj go jeśli nie ma</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Rozwiązanie zadania 8</div>
+        
+        <div class="solution-steps">
+            <div class="step">
+                <strong>Test komunikacji:</strong>
+                <ol>
+                    <li>Otwórz wiersz polecenia jako administrator</li>
+                    <li>Aby wyświetlić adres IP interfejsu WAN, wykonaj:
+                        <div class="code-block">
+                            ipconfig
+                        </div>
+                        Znajdź sekcję dla połączenia <strong>WAN</strong> i zanotuj przypisany adres IP
+                    </li>
+                    <li>Przetestuj połączenie z stacją roboczą:
+                        <div class="code-block">
+                            ping &lt;adres_IP_stacji&gt;
+                        </div>
+                    </li>
+                    <li>Przetestuj połączenie z interfejsem LAN rutera:
+                        <div class="code-block">
+                            ping &lt;adres_IP_rutera&gt;
+                        </div>
+                    </li>
+                    <li>Jeśli testy ping nie powiodą się, sprawdź ustawienia zapory na stacji roboczej:
+                        <div class="code-block">
+                            netsh advfirewall firewall add rule name="Allow ICMP" dir=in action=allow protocol=icmpv4
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="note">
+                <strong>UWAGA:</strong> Po wykonaniu testów połączenia zgłoś Przewodniczącemu ZN gotowość do przeprowadzenia ponownego sprawdzenia komunikacji serwera z ruterem oraz stacją roboczą. Sprawdzenie wykonaj w obecności egzaminatora.
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="windowspraktyka.html" class="btn"> Powrót do listy egzaminów</a>
+    </div>
+</body>
+</html>

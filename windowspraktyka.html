@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INF02 Praktyka Windows</title>
+    <style>
+        /* Spójna stylistyka */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e6f2ff, #f0f8ff);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #0078d7;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #005a9e;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+        }
+        
+        .description {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #0078d7;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .lessons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .lesson-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        
+        .lesson-number {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #0078d7;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+        
+        .lesson-icon {
+            height: 180px;
+            background: linear-gradient(135deg, #0078d7, #106ebe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lesson-icon i {
+            font-size: 4.5rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .lesson-info {
+            padding: 25px;
+        }
+        
+        .lesson-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #005a9e;
+            min-height: 60px;
+        }
+        
+        .lesson-description {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 0 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0078d7, #106ebe);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #3aa655, #2d7e46);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        .windows-logo {
+            display: block;
+            margin: 0 auto 30px;
+            width: 100px;
+            height: auto;
+            opacity: 0.9;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .lessons-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+                margin: 5px;
+            }
+            
+            .lesson-icon {
+                height: 150px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div></div>
+        <img src="logo.png" alt="Logo" class="logo">
+    </header>
+    
+    <div class="container">
+        <div class="header-content">
+            <svg class="windows-logo" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 12.4024L35.7785 8.3916V39.8136H0V12.4024Z" fill="#0078D7"/>
+                <path d="M0 75.5976L35.7785 79.6084V48.1864H0V75.5976Z" fill="#0078D7"/>
+                <path d="M41.362 7.1416L88 4V39.8136H41.362V7.1416Z" fill="#0078D7"/>
+                <path d="M41.362 80.8584L88 84V48.1864H41.362V80.8584Z" fill="#0078D7"/>
+            </svg>
+            
+            <h1><i class="fab fa-windows"></i> INF02 Praktyka Windows</h1>
+            <p class="subtitle">Egzaminy z poprzednich lat</p>
+        </div>
+        
+        <div class="description">
+            <p>Poniżej znajdziesz zadania z egzaminu inf 02 z porzednich lat wraz z ich rozwiązaniami, miłej nauki!</p>
+        </div>
+        
+<div class="lessons-container">
+    <div class="lesson-card" onclick="window.location.href='win1.html'">
+        <div class="lesson-number">01</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2025 styczeń</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji styczeń 2025.</div>
+        </div>
+    </div>
+    <div class="lesson-card" onclick="window.location.href='win2.html'">
+        <div class="lesson-number">02</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2024 czerwiec</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji czerwiec 2024.</div>
+        </div>
+    </div>
+    <div class="lesson-card" onclick="window.location.href='win3.html'">
+        <div class="lesson-number">03</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2024 styczeń</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji styczeń 2024.</div>
+        </div>
+    </div>
+    <div class="lesson-card" onclick="window.location.href='win4.html'">
+        <div class="lesson-number">04</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2023 czerwiec</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji czerwiec 2023.</div>
+        </div>
+    </div>
+    <div class="lesson-card" onclick="window.location.href='win5.html'">
+        <div class="lesson-number">05</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2023 styczeń</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji styczeń 2023.</div>
+        </div>
+    </div>
+    <div class="lesson-card" onclick="window.location.href='win6.html'">
+        <div class="lesson-number">06</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2022 czerwiec</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji czerwiec 2022.</div>
+        </div>
+    </div>
+    <div class="lesson-card" onclick="window.location.href='win7.html'">
+        <div class="lesson-number">07</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2022 styczeń</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji styczeń 2022.</div>
+        </div>
+    </div>
+    <div class="lesson-card" onclick="window.location.href='win8.html'">
+        <div class="lesson-number">08</div>
+        <div class="lesson-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="lesson-info">
+            <div class="lesson-title">Egzamin zawodowy INF.02 2021 czerwiec</div>
+            <div class="lesson-description">Arkusz egzaminacyjny z sesji czerwiec 2021.</div>
+        </div>
+    </div>
+</div>
+
+
+        
+        <div class="btn-container">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i> Strona główna
+            </a>
+            <a href="Teoria.html" class="btn btn-secondary">
+                <i class="fas fa-book"></i> Teoria ogólna
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; Stronka do użytku publicznego. Uczniowska (<b> NIE</b> Oficjalna) strona technikum Im. Gen. Hallera w Owidzu.</p>
+    </footer>
+    
+    <script>
+        // Animacja kart przy ładowaniu
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.lesson-card');
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+        
+        // Ustawienia początkowe dla animacji
+        document.querySelectorAll('.lesson-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Funkcja przekierowująca do lekcji
+        function redirectToLesson(lessonNumber) {
+            window.location.href = `lekcja-${lessonNumber.toString().padStart(2, '0')}.html`;
+        }
+    </script>
+</body>
+</html>
