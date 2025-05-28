@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INF02 Teoria Linux</title>
+    <style>
+        /* Zachowujemy te same style co na stronie głównej */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            color: #3aa655;
+            border-bottom: 2px solid #3aa655;
+            padding-bottom: 10px;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .command {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3aa655;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .command-example {
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 5px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background-color: #3aa655;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #2d7e46;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="https://via.placeholder.com/150x60?text=LOGO" alt="Logo" class="logo">
+    </header>
+    
+    <div class="container">
+        <h1><i class="fab fa-linux"></i> INF02 Teoria Linux - Polecenia</h1>
+        
+        <div class="content-section">
+            <h2>Podstawowe polecenia Linux - cz.1</h2>
+            
+            <div class="command">
+                <strong>man</strong> - wyświetla pomoc do wybranego polecenia
+                <div class="command-example">Przykład: man ls</div>
+            </div>
+            
+            <div class="command">
+                <strong>pwd</strong> - wyświetla lokalizację w której jesteśmy
+            </div>
+            
+            <div class="command">
+                <strong>cd ..</strong> - wychodzimy z katalogu
+            </div>
+            
+            <div class="command">
+                <strong>cd administrator</strong> - wchodzimy na katalog administratora
+            </div>
+            
+            <div class="command">
+                <strong>cd /</strong> - wychodzimy ze wszystkiego
+            </div>
+            
+            <div class="command">
+                <strong>cd ~</strong> - wracamy do podstaw np /home
+            </div>
+            
+            <div class="command">
+                <strong>ls</strong> - wyświetla katalogi i foldery oraz pliki
+            </div>
+            
+            <div class="command">
+                <strong>ls -la</strong> - lista katalogów
+            </div>
+            
+            <div class="command">
+                <strong>mkdir</strong> - tworzenie katalogu
+            </div>
+            
+            <div class="command">
+                <strong>rmdir (nazwa)</strong> - usuwa katalog (musi być pusty)
+            </div>
+            
+            <div class="command">
+                <strong>touch</strong> - tworzy plik
+            </div>
+            
+            <div class="command">
+                <strong>rm</strong> - usuwa plik
+            </div>
+            
+            <div class="command">
+                <strong>rm -r (nazwa)</strong> - usuwa katalog razem z zawartością
+            </div>
+            
+            <div class="command">
+                <strong>cat (nazwa pliku)</strong> - wyświetla zawartość i komendy które były używane w tym pliku
+            </div>
+            
+            <div class="command">
+                <strong>cp (nazwa pliku) (dokąd)</strong> - kopiowanie pliku
+            </div>
+            
+            <div class="command">
+                <strong>mv</strong> - pozwala zmienić nazwę jak i przenieść plik
+            </div>
+            
+            <div class="command">
+                <strong>sudo cfdisk</strong> - partycje dysków itd
+            </div>
+            
+            <div class="command">
+                <strong>fdisk</strong> - to samo co cfdisk lecz więcej opcji
+            </div>
+            
+            <div class="command">
+                <strong>sudo fdisk /dev/sda</strong> - zarządzanie dyskiem
+            </div>
+            
+            <div class="command">
+                <strong>sudo mkfs.ext4 (nazwa dysku)</strong> - zmienia system plików dysku
+            </div>
+            
+            <div class="command">
+                <strong>sudo chown (user):(grupa) (katalog)</strong> - zmiana właściciela i grupy katalogu
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Konfiguracja Linux Server - cz.2</h2>
+            
+            <div class="command">
+                <strong>lsb_release -d</strong> - sprawdzenie nazwy dystrybucji
+            </div>
+            
+            <div class="command">
+                <strong>echo "nazwa dystrybucji:" > SO</strong> - utworzy plik SO
+            </div>
+            
+            <div class="command">
+                <strong>lsb_release -d >> SO</strong> - skopiuje zawartość pliku do pliku SO
+            </div>
+            
+            <div class="note">
+                <div class="note-title">UWAGA!</div>
+                Jeśli chcemy sprawdzić czy na pewno wykonaliśmy powyższe czynności dobrze wpisujemy:<br>
+                <strong>nano SO</strong><br>
+                W ten sposób wyświetli nam się zawartość pliku SO
+            </div>
+            
+            <div class="command">
+                <strong>uname --help</strong> - wyświetli przystawki które pomogą nam sprawdzić wersję jądra systemu itd.
+            </div>
+            
+            <div class="command">
+                <strong>uname -rv</strong> - wyświetla wersję jądra i datę jego wydania.
+            </div>
+            
+            <div class="command">
+                <strong>echo "wersja jądra:" >> SO</strong> - dodaje nagłówek do pliku SO
+            </div>
+            
+            <div class="note">
+                <div class="note-title">UWAGA!</div>
+                NIE WPISUJEMY POJEDYNCZEGO ZNAKU WIĘKSZOŚCI, W PRZECIWNYM RAZIE NADPISZEMY NASZ PLIK SO
+            </div>
+            
+            <div class="command">
+                <strong>uname -m</strong> - architektura systemu (w Linuxie jest podpisana jako machine)
+            </div>
+            
+            <h3>Procesor</h3>
+            
+            <div class="command">
+                <strong>lscpu</strong> - informacje o procesorze
+            </div>
+            
+            <div class="command">
+                <strong>lscpu | grep "Model name"</strong> - wyświetli model procesora
+            </div>
+            
+            <div class="command">
+                <strong>lscpu | grep "Model name" > CPU</strong> - utworzy plik CPU
+            </div>
+            
+            <div class="command">
+                <strong>lscpu | grep "GHz" >> CPU</strong> - informacja o taktowaniu procesora
+            </div>
+            
+            <div class="note">
+                <div class="note-title">UWAGA!</div>
+                JEŚLI POTRZEBUJEMY INNYCH WARTOŚCI JAK PAMIĘĆ CACHE L1 LUB L2 WPISUJEMY PO KOMENDZIE GREP W ZNACZNIKACH L1 BĄDŹ L2
+            </div>
+            
+            <h3>Pamięć RAM</h3>
+            
+            <div class="command">
+                <strong>sudo lshw -c memory</strong> - wyświetla informacje o kościach w bankach pamięci
+            </div>
+            
+            <div class="command">
+                <strong>sudo lshw -c memory | grep GiB > RAM</strong> - zapisuje pojemność RAM do pliku
+            </div>
+            
+            <h3>Płyta główna</h3>
+            
+            <div class="command">
+                <strong>sudo dmidecode -t baseboard</strong> - wyświetla info o płycie głównej
+            </div>
+            
+            <div class="command">
+                <strong>sudo dmidecode -t baseboard | grep Manufacturer > MAINBOARD</strong> - producent płyty głównej
+            </div>
+            
+            <div class="command">
+                <strong>sudo dmidecode -t baseboard | grep Serial >> MAINBOARD</strong> - numer seryjny płyty
+            </div>
+            
+            <div class="command">
+                <strong>lsblk</strong> - wyświetla dostępne dyski
+            </div>
+            
+            <div class="command">
+                <strong>sudo mount /dev/sdb1 /mnt/pen</strong> - montowanie dysku (np. pendrive'a)
+            </div>
+            
+            <div class="command">
+                <strong>sudo cp SO /mnt/pen</strong> - kopiowanie plików na zamontowany dysk
+            </div>
+            
+            <h3>Konfiguracja dysku</h3>
+            
+            <div class="command">
+                <strong>sudo blkid >> /etc/fstab</strong> - dodanie UUID dysku do fstab
+            </div>
+            
+            <div class="note">
+                Format wpisu w fstab:<br>
+                <strong>UUID (NAZWA_KATALOGU) (FORMAT) (PARAMETR np. nofail)</strong>
+            </div>
+            
+            <h3>Konfiguracja Apache</h3>
+            
+            <div class="command">
+                <strong>nano /etc/apache2/ports.conf</strong> - edycja portów (zmiana w linijce listen)
+            </div>
+            
+            <div class="command">
+                <strong>nano /etc/apache2/sites-enabled/000-default.conf</strong> - konfiguracja witryny
+            </div>
+            
+            <div class="note">
+                Zmiana katalogu źródłowego witryny:<br>
+                <strong>DocumentRoot (nazwa_katalogu)</strong>
+            </div>
+            
+            <div class="command">
+                <strong>sudo systemctl restart apache2</strong> - restart serwera WWW
+            </div>
+            
+            <h3>Polityka haseł</h3>
+            
+            <div class="command">
+                <strong>chage --help</strong> - wyświetla opcje zarządzania hasłami
+            </div>
+            
+            <div class="command">
+                <strong>sudo passwd (nazwa_uzytkownika)</strong> - zmiana hasła dla użytkownika
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Powrót do strony głównej</a>
+    </div>
+    
+    <footer>
+        <p>&copy; Stronka do użytku publicznego. Uczniowska (<b> NIE</b> Oficjalna) strona technikum Im. Gen. Hallera w Owidzu.</p>
+    </footer>
+</body>
+</html>
