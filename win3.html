@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INF.02 2024 styczeń - Windows Server</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .task-section {
+            background-color: white;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .task-number {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .task-content {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            white-space: pre-line;
+        }
+        
+        .solution-steps {
+            margin-left: 20px;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background-color: #f0f0f0;
+            border-left: 4px solid #2c3e50;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+        
+        .note {
+            background-color: #fffde7;
+            border-left: 4px solid #ffd600;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Egzamin zawodowy INF.02 - styczeń 2024</h1>
+        <h2>Zadanie: Konfiguracja Windows Server</h2>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Pełna treść zadania</div>
+        
+        <div class="task-content">
+7. Skonfiguruj serwer z zainstalowanym systemem operacyjnym Windows:
+‒ skonfiguruj interfejs sieciowy serwera podłączony do rutera:
+‒ nazwa połączenia: LAN_ruter
+‒ adres IP: 172.31.0.2/24
+‒ brama domyślna: adres IP interfejsu LAN rutera
+‒ serwer DNS: localhost
+‒ włącz usługę rutingu oraz NAT dla adresu 172.31.0.2 jako interfejsu publicznego
+‒ skonfiguruj interfejs sieciowy serwera podłączony do przełącznika:
+‒ nazwa połączenia: LAN_switch
+‒ adres IP: 10.100.100.1/24
+‒ serwer DNS: localhost
+‒ zainstaluj usługę DNS i skonfiguruj ją zgodnie z zaleceniami:
+‒ utworzona strefa wyszukiwania do przodu o nazwie: pracownia.local
+‒ skonfigurowane właściwości strefy:
+‒ interwał odświeżania: 10 minut
+‒ interwał ponawiania prób: 5 minut
+‒ wygasanie po: 12 godzinach
+‒ za pomocą poleceń systemowych wykonaj test połączenia serwera z ruterem, przełącznikiem i stacją roboczą.
+
+UWAGA: Po wykonaniu testu komunikacji zgłoś Przewodniczącemu ZN – przez podniesienie ręki – 
+gotowość do sprawdzenia komunikacji serwera z ruterem, przełącznikiem oraz stacją roboczą. Ponowne 
+sprawdzenie wykonaj w obecności egzaminatora.
+        </div>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Rozwiązanie zadania 7</div>
+        
+        <div class="solution-steps">
+            <div class="step">
+                <strong>Konfiguracja interfejsu LAN_ruter:</strong>
+                <ol>
+                    <li>Otwórz <strong>Panel sterowania > Centrum sieci i udostępniania > Zmień ustawienia karty sieciowej</strong></li>
+                    <li>Kliknij prawym przyciskiem na interfejs podłączony do rutera i wybierz <strong>Właściwości</strong></li>
+                    <li>Zmień nazwę połączenia na <strong>LAN_ruter</strong></li>
+                    <li>Wybierz <strong>Protokół internetowy w wersji 4 (TCP/IPv4)</strong> i kliknij <strong>Właściwości</strong></li>
+                    <li>Wprowadź ustawienia:
+                        <ul>
+                            <li>Adres IP: <strong>172.31.0.2</strong></li>
+                            <li>Maska podsieci: <strong>255.255.255.0</strong> (lub /24)</li>
+                            <li>Brama domyślna: <strong>adres IP interfejsu LAN rutera</strong> (np. 172.31.0.1)</li>
+                            <li>Serwer DNS: <strong>127.0.0.1</strong> (localhost)</li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>OK</strong> aby zapisać zmiany</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Konfiguracja interfejsu LAN_switch:</strong>
+                <ol>
+                    <li>Kliknij prawym przyciskiem na interfejs podłączony do przełącznika i wybierz <strong>Właściwości</strong></li>
+                    <li>Zmień nazwę połączenia na <strong>LAN_switch</strong></li>
+                    <li>Wybierz <strong>Protokół internetowy w wersji 4 (TCP/IPv4)</strong> i kliknij <strong>Właściwości</strong></li>
+                    <li>Wprowadź ustawienia:
+                        <ul>
+                            <li>Adres IP: <strong>10.100.100.1</strong></li>
+                            <li>Maska podsieci: <strong>255.255.255.0</strong> (lub /24)</li>
+                            <li>Serwer DNS: <strong>127.0.0.1</strong> (localhost)</li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>OK</strong> aby zapisać zmiany</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Włączenie usługi rutingu i NAT:</strong>
+                <ol>
+                    <li>Otwórz <strong>Menedżer serwera > Dodaj role i funkcje</strong></li>
+                    <li>Wybierz <strong>Instalacja oparta na rolach lub funkcjach</strong></li>
+                    <li>Wybierz rolę <strong>Serwer dostępu zdalnego</strong> i kliknij <strong>Dalej</strong></li>
+                    <li>Wybierz usługę <strong>Routing</strong> i kliknij <strong>Dalej</strong></li>
+                    <li>Zakończ proces instalacji</li>
+                    <li>Otwórz <strong>Narzędzia administracyjne > Routing i dostęp zdalny</strong></li>
+                    <li>Kliknij prawym przyciskiem na serwer i wybierz <strong>Skonfiguruj i włącz Routing i dostęp zdalny</strong></li>
+                    <li>Wybierz <strong>Konfiguracja NAT</strong> i wskaż interfejs <strong>LAN_ruter (172.31.0.2)</strong> jako publiczny</li>
+                    <li>Zakończ konfigurację</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Instalacja i konfiguracja usługi DNS:</strong>
+                <ol>
+                    <li>Otwórz <strong>Menedżer serwera > Dodaj role i funkcje</strong></li>
+                    <li>Wybierz rolę <strong>Serwer DNS</strong> i zakończ proces instalacji</li>
+                    <li>Otwórz <strong>Menedżer DNS</strong> z menu Narzędzia administracyjne</li>
+                    <li>Kliknij prawym przyciskiem na <strong>Strefy wyszukiwania do przodu</strong> i wybierz <strong>Nowa strefa...</strong></li>
+                    <li>Utwórz strefę podstawową o nazwie <strong>pracownia.local</strong></li>
+                    <li>Kliknij prawym przyciskiem na nową strefę i wybierz <strong>Właściwości</strong></li>
+                    <li>W zakładce <strong>Ogólne</strong> kliknij przycisk <strong>Edytuj</strong> przy polu "Odświeżanie"</li>
+                    <li>Ustaw wartości:
+                        <ul>
+                            <li>Interwał odświeżania: <strong>10 minut</strong></li>
+                            <li>Interwał ponawiania prób: <strong>5 minut</strong></li>
+                            <li>Wygasanie po: <strong>12 godzinach</strong></li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>OK</strong> aby zapisać zmiany</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Testowanie komunikacji</div>
+        
+        <div class="solution-steps">
+            <div class="step">
+                <strong>Test połączenia z serwera:</strong>
+                <ol>
+                    <li>Otwórz <strong>wiersz polecenia</strong> jako administrator</li>
+                    <li>Przetestuj połączenie z ruterem:
+                        <div class="code-block">
+                            ping 172.31.0.1
+                        </div>
+                    </li>
+                    <li>Przetestuj połączenie z przełącznikiem (jeśli ma adres IP):
+                        <div class="code-block">
+                            ping &lt;adres_IP_przełącznika&gt;
+                        </div>
+                    </li>
+                    <li>Przetestuj połączenie ze stacją roboczą:
+                        <div class="code-block">
+                            ping &lt;adres_IP_stacji&gt;
+                        </div>
+                    </li>
+                    <li>Sprawdź routing:
+                        <div class="code-block">
+                            route print
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="note">
+                <strong>Rozwiązywanie problemów:</strong>
+                <ul>
+                    <li>Jeśli ping nie działa, sprawdź ustawienia zapory:
+                        <div class="code-block">
+                            netsh advfirewall firewall add rule name="ICMP Allow" protocol=icmpv4 dir=in action=allow
+                        </div>
+                    </li>
+                    <li>Sprawdź poprawność konfiguracji interfejsów:
+                        <div class="code-block">
+                            ipconfig /all
+                        </div>
+                    </li>
+                    <li>Sprawdź działanie NAT:
+                        <div class="code-block">
+                            netsh routing ip nat show interface
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="warning">
+                <strong>UWAGA:</strong> Po wykonaniu testów zgłoś egzaminatorowi gotowość do weryfikacji konfiguracji. W obecności egzaminatora wykonaj ponowne testy komunikacji.
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="windowspraktyka.html" class="btn">Powrót do listy egzaminów</a>
+    </div>
+</body>
+</html>
