@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INF.02 2022 styczeń - Konfiguracja Active Directory</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .task-section {
+            background-color: white;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .task-number {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .task-content {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            white-space: pre-line;
+        }
+        
+        .solution-steps {
+            margin-left: 20px;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background-color: #f0f0f0;
+            border-left: 4px solid #2c3e50;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+        }
+        
+        .note {
+            background-color: #fffde7;
+            border-left: 4px solid #ffd600;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Egzamin zawodowy INF.02 - styczeń 2022</h1>
+        <h2>Zadanie: Konfiguracja Active Directory</h2>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Pełna treść zadania 7</div>
+        
+        <div class="task-content">
+7. Skonfiguruj serwer z zainstalowanym systemem Windows:
+‒ skonfiguruj interfejs sieciowy serwera, podłączony do przełącznika według zaleceń:
+‒ nazwa połączenia: NET11
+‒ adres IP przydzielany automatycznie
+‒ serwer DNS: localhost
+‒ wyłącz drugi interfejs sieciowy serwera
+‒ promuj serwer do roli kontrolera domeny. Utwórz nową domenę o nazwie egzamin.local w nowym 
+lesie. Jako hasło konta Administrator dla trybu przywracania usług katalogowych ustaw 
+Egzamin08!@
+‒ w domenie egzamin.local utwórz jednostkę organizacyjną o nazwie Prawnicy, a w niej utwórz konto 
+użytkownika z następującymi ustawieniami:
+‒ pełna nazwa: Adam Kowalski
+‒ nazwa logowania: prawnik
+‒ hasło: Pr@wnik1!
+‒ za pomocą poleceń systemowych wykonaj test połączenia serwera z ruterem, przełącznikiem i stacją 
+roboczą. Upewnij się czy konfiguracja systemu operacyjnego serwera i stacji roboczej zezwala na 
+wykonanie tego testu. Na serwerze i stacji roboczej wyświetl uzyskany automatycznie adres IP
+
+UWAGA: Po wykonaniu testu komunikacji zgłoś przewodniczącemu ZN – przez podniesienie ręki – gotowość 
+do sprawdzenia komunikacji serwera z ruterem, przełącznikiem oraz stacją roboczą. Ponowne sprawdzenie 
+wykonaj w obecności egzaminatora. Na serwerze i stacji roboczej wyświetl uzyskany automatycznie adres IP
+        </div>
+    </div>
+    
+    <div class="task-section">
+        <div class="task-number">Rozwiązanie zadania 7</div>
+        
+        <div class="solution-steps">
+            <div class="step">
+                <strong>Konfiguracja interfejsu NET11:</strong>
+                <ol>
+                    <li>Otwórz <strong>Panel sterowania > Centrum sieci i udostępniania > Zmień ustawienia karty sieciowej</strong></li>
+                    <li>Kliknij prawym przyciskiem na aktywny interfejs i wybierz <strong>Właściwości</strong></li>
+                    <li>Zmień nazwę połączenia na <strong>NET11</strong></li>
+                    <li>Wybierz <strong>Protokół internetowy w wersji 4 (TCP/IPv4)</strong> i kliknij <strong>Właściwości</strong></li>
+                    <li>Wprowadź ustawienia:
+                        <ul>
+                            <li>Wybierz <strong>Uzyskaj adres IP automatycznie</strong></li>
+                            <li>Wybierz <strong>Uzyskaj adres serwera DNS automatycznie</strong></li>
+                            <li>Kliknij <strong>Zaawansowane > DNS</strong></li>
+                            <li>Dodaj serwer DNS: <strong>127.0.0.1</strong></li>
+                        </ul>
+                    </li>
+                    <li>Wyłącz drugi interfejs sieciowy (jeśli istnieje) poprzez kliknięcie prawym przyciskiem i wybranie <strong>Wyłącz</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Promocja serwera do kontrolera domeny:</strong>
+                <ol>
+                    <li>Otwórz <strong>Menedżer serwera > Dodaj role i funkcje</strong></li>
+                    <li>Wybierz <strong>Instalacja oparta na rolach lub funkcjach</strong></li>
+                    <li>Wybierz rolę <strong>Usługi domenowe Active Directory</strong> i dodaj wymagane funkcje</li>
+                    <li>Po instalacji kliknij <strong>Promuj ten serwer do kontrolera domeny</strong></li>
+                    <li>Wybierz <strong>Dodaj nowy las</strong> i wprowadź nazwę domeny: <strong>egzamin.local</strong></li>
+                    <li>Ustaw hasło trybu przywracania usług katalogowych (DSRM): <strong>Egzamin08!@</strong></li>
+                    <li>Kliknij <strong>Dalej</strong> i zakończ proces promocji (serwer zostanie zrestartowany)</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Tworzenie jednostki organizacyjnej i użytkownika:</strong>
+                <ol>
+                    <li>Po restarcie zaloguj się jako administrator domeny</li>
+                    <li>Otwórz <strong>Narzędzia administracyjne > Użytkownicy i komputery usługi Active Directory</strong></li>
+                    <li>Kliknij prawym przyciskiem na domenę <strong>egzamin.local</strong> i wybierz <strong>Nowy > Jednostka organizacyjna</strong></li>
+                    <li>Wprowadź nazwę: <strong>Prawnicy</strong> i kliknij <strong>OK</strong></li>
+                    <li>Kliknij prawym przyciskiem na nową jednostkę i wybierz <strong>Nowy > Użytkownik</strong></li>
+                    <li>Wprowadź dane:
+                        <ul>
+                            <li>Imię i nazwisko: <strong>Adam Kowalski</strong></li>
+                            <li>Nazwa logowania użytkownika: <strong>prawnik</strong></li>
+                        </ul>
+                    </li>
+                    <li>Kliknij <strong>Dalej</strong> i ustaw hasło: <strong>Pr@wnik1!</strong></li>
+                    <li>Odznacz <strong>Użytkownik musi zmienić hasło przy następnym logowaniu</strong></li>
+                    <li>Kliknij <strong>Dalej > Zakończ</strong></li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <strong>Testowanie komunikacji i wyświetlanie adresów IP:</strong>
+                <ol>
+                    <li>Na serwerze otwórz <strong>wiersz polecenia</strong> jako administrator</li>
+                    <li>Wyświetl adres IP:
+                        <div class="code-block">
+                            ipconfig
+                        </div>
+                        Zanotuj adres przydzielony automatycznie dla interfejsu NET11
+                    </li>
+                    <li>Przetestuj połączenie z ruterem (zakładając, że ma adres .1 w tej samej sieci):
+                        <div class="code-block">
+                            ping 192.168.1.1
+                        </div>
+                    </li>
+                    <li>Przetestuj połączenie z przełącznikiem (jeśli ma adres IP):
+                        <div class="code-block">
+                            ping &lt;adres_IP_przełącznika&gt;
+                        </div>
+                    </li>
+                    <li>Przetestuj połączenie ze stacją roboczą:
+                        <div class="code-block">
+                            ping &lt;adres_IP_stacji&gt;
+                        </div>
+                    </li>
+                    <li>Na stacji roboczej (Windows):
+                        <div class="code-block">
+                            ipconfig
+                        </div>
+                    </li>
+                    <li>Na stacji roboczej (Linux):
+                        <div class="code-block">
+                            ip a
+                        </div>
+                        lub
+                        <div class="code-block">
+                            ifconfig
+                        </div>
+                    </li>
+                    <li>Jeśli testy ping nie działają, włącz odpowiednie reguły zapory:
+                        <div class="code-block">
+                            # Windows
+                            netsh advfirewall firewall add rule name="ICMP Allow" protocol=icmpv4 dir=in action=allow
+                            
+                            # Linux
+                            sudo iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="warning">
+                <strong>UWAGA:</strong> Po wykonaniu testów zgłoś egzaminatorowi gotowość do weryfikacji komunikacji. W obecności egzaminatora wyświetl uzyskane adresy IP na serwerze i stacji roboczej.
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <a href="windowspraktyka.html" class="btn">Powrót do listy egzaminów</a>
+    </div>
+</body>
+</html>
