@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INF02 Praktyka Linux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1a2e19, #2c4b2a);
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.7));
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(76, 175, 80, 0.2);
+            transform: translateY(-3px);
+        }
+         
+        .footer-highlight {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #C8E6C9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+        }
+        
+        .description {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 50px;
+            border-left: 5px solid #4CAF50;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .description p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .lessons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .lesson-card {
+            background: linear-gradient(135deg, #2c4b2a, #1a2e19);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(76, 175, 80, 0.4);
+            z-index: 2;
+        }
+        
+        .lesson-number {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #4CAF50;
+            color: #1a2e19;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+        
+        .lesson-icon {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lesson-icon::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.2) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+        
+        .lesson-icon i {
+            font-size: 5rem;
+            color: rgba(76, 175, 80, 0.7);
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+            z-index: 1;
+        }
+        
+        .lesson-info {
+            padding: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .lesson-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #C8E6C9;
+            min-height: 60px;
+        }
+        
+        .lesson-description {
+            color: #A5D6A7;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 60px 0 40px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            margin: 0 10px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: #fff;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #2196F3, #0D47A1);
+            color: #fff;
+        }
+        
+        .btn-tertiary {
+            background: linear-gradient(135deg, #FF9800, #EF6C00);
+            color: #fff;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .btn i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .tux-logo {
+            display: block;
+            margin: 0 auto 30px;
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.7));
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            margin-top: 80px;
+            border-top: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        footer p {
+            color: #A5D6A7;
+            font-size: 1rem;
+        }
+        
+        .linux-distros {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .distro {
+            color: #4CAF50;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .lessons-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+                margin: 5px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .header-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Animacje */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .tux-logo {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/150px-Tux.svg.png" alt="Linux Logo" class="logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Strona Główna</a>
+            <a href="linuxteoria.html"><i class="fas fa-book"></i> Teoria Linux</a>
+            <a href="windowspraktyka.html"><i class="fab fa-windows"></i> Praktyka Windows</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="header-content">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/150px-Tux.svg.png" alt="Tux" class="tux-logo">
+            <h1><i class="fab fa-linux"></i> INF02 Praktyka Linux</h1>
+            <p class="subtitle">Przewodnik po systemie linux.</p>
+        </div>
+        
+        <div class="description">
+            <p>Poniższe zadania egzaminacyjne przygotują was do <span class="highlight">Egzaminu INF.02</span> jeżeli chodzi o zakres administracji systemami Linux.</p>
+            <p><span class="highlight">Materiały przeznaczone są dla klas 2 i 3 przygotowywujące do egzaminu INF.02.</span></p>
+        </div>
+        
+        <div class="lessons-container">
+            <!-- Lekcja 1 -->
+            <div class="lesson-card" onclick="window.location.href='linux-lekcja-01.html'">
+                <div class="lesson-number">01</div>
+                <div class="lesson-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="lesson-info">
+                    <div class="lesson-title">1</div>
+                    <div class="lesson-description">1</div>
+                </div>
+            </div>
+            
+            <!-- Lekcja 2 -->
+            <div class="lesson-card" onclick="window.location.href='linux-lekcja-02.html'">
+                <div class="lesson-number">02</div>
+                <div class="lesson-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="lesson-info">
+                    <div class="lesson-title">2</div>
+                    <div class="lesson-description">2</div>
+                </div>
+            </div>
+            
+            <!-- Lekcja 3 -->
+            <div class="lesson-card" onclick="window.location.href='linux-lekcja-03.html'">
+                <div class="lesson-number">03</div>
+                <div class="lesson-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="lesson-info">
+                    <div class="lesson-title">3</div>
+                    <div class="lesson-description">4</div>
+                </div>
+            </div>
+            
+            <!-- Lekcja 4 -->
+            <div class="lesson-card" onclick="window.location.href='linux-lekcja-04.html'">
+                <div class="lesson-number">04</div>
+                <div class="lesson-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="lesson-info">
+                    <div class="lesson-title">4</div>
+                    <div class="lesson-description">4</div>
+                </div>
+            </div>
+            
+            <!-- Lekcja 5 -->
+            <div class="lesson-card" onclick="window.location.href='linux-lekcja-05.html'">
+                <div class="lesson-number">05</div>
+                <div class="lesson-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <div class="lesson-info">
+                    <div class="lesson-title">5</div>
+                    <div class="lesson-description">5</div>
+                </div>
+            </div>
+            <!-- Lekcja 6 -->
+            <div class="lesson-card" onclick="window.location.href='linux-lekcja-06.html'">
+                <div class="lesson-number">06</div>
+                <div class="lesson-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <div class="lesson-info">
+                    <div class="lesson-title">6</div>
+                    <div class="lesson-description">6</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="btn-container">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i> Strona główna
+            </a>
+            <a href="linuxteoria" class="btn btn-secondary">
+                <i class="fas fa-book"></i> Teoria Linux
+            </a>
+            <a href="windowspraktyka.html" class="btn btn-tertiary">
+                <i class="fab fa-windows"></i> Praktyka Windows
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="linux-distros">
+            <span class="distro">Ubuntu</span>
+            <span class="distro">Debian</span>
+            <span class="distro">CentOS</span>
+            <span class="distro">Fedora</span>
+            <span class="distro">Arch Linux</span>
+            <span class="distro">OpenSUSE</span>
+        </div>
+        <p>Stronka do użytku publicznego. Uczniowska (<span class="footer-highlight">NIE</span> Oficjalna) strona technikum Im. Gen. Hallera w Owidzu.</p>
+        <p>Wszystkie materiały edukacyjne | Technologie Open Source</p>
+    </footer>
+    
+    <script>
+        // Animacja kart przy ładowaniu
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.lesson-card');
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+            
+            // Efekt paralaksy
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth - e.pageX * 2) / 100;
+                const y = (window.innerHeight - e.pageY * 2) / 100;
+                document.querySelector('.header-content').style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+        
+        // Ustawienia początkowe dla animacji
+        document.querySelectorAll('.lesson-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease, box-shadow 0.4s ease';
+        });
+        
+        // Efekt paralaksy dla nagłówka
+        document.querySelector('.header-content').style.transition = 'transform 0.1s ease-out';
+    </script>
+</body>
+</html>
