@@ -4,382 +4,717 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INF02 Teoria Linux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Zachowujemy te same style co na stronie głównej */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #1a2e19, #2c4b2a);
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 50px;
         }
         
         header {
             display: flex;
-            justify-content: flex-end;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
         }
         
         .logo {
             height: 60px;
             width: auto;
+            filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.7));
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(76, 175, 80, 0.2);
+            transform: translateY(-3px);
         }
         
         .container {
             max-width: 1200px;
-            margin: 50px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
         
-        h1, h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+        .header-content {
             text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+            z-index: 0;
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-size: 3.2rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+            position: relative;
+            z-index: 1;
         }
         
-        h2 {
-            font-size: 1.8rem;
-            margin-top: 40px;
-            color: #3aa655;
-            border-bottom: 2px solid #3aa655;
-            padding-bottom: 10px;
+        .subtitle {
+            font-size: 1.4rem;
+            color: #C8E6C9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tux-logo {
+            display: block;
+            margin: 0 auto 30px;
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.7));
+            animation: float 4s ease-in-out infinite;
         }
         
         .content-section {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(44, 75, 42, 0.8), rgba(26, 46, 25, 0.9));
+            border-radius: 15px;
             padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
-        .command {
-            background-color: #f8f9fa;
-            border-left: 4px solid #3aa655;
-            padding: 15px;
-            margin: 15px 0;
-            font-family: 'Courier New', monospace;
-            border-radius: 0 5px 5px 0;
+        .content-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4CAF50, #2E7D32);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(76, 175, 80, 0.5);
+            position: relative;
+        }
+        
+        h2 i {
+            margin-right: 15px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: #81C784;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .command-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #4CAF50;
+            transition: all 0.3s ease;
+        }
+        
+        .command-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .command-title {
+            font-weight: bold;
+            color: #4CAF50;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .command-title i {
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .command-desc {
+            color: #E8F5E9;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
         }
         
         .command-example {
-            color: #666;
-            font-style: italic;
-            margin-top: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            color: #81C784;
+            border-left: 2px solid #4CAF50;
+            font-size: 0.95rem;
         }
         
         .note {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
+            background: rgba(255, 243, 205, 0.1);
+            border-left: 4px solid #FFC107;
             padding: 15px;
-            margin: 15px 0;
+            margin: 20px 0;
             border-radius: 0 5px 5px 0;
         }
         
         .note-title {
             font-weight: bold;
-            color: #856404;
-            margin-bottom: 5px;
+            color: #FFC107;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
         }
         
-        .back-button {
-            display: inline-block;
-            background-color: #3aa655;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+        .note-title i {
+            margin-right: 10px;
+        }
+        
+        .note-content {
+            color: #FFF8E1;
+            line-height: 1.6;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 60px 0 40px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 35px;
+            border-radius: 50px;
             text-decoration: none;
-            margin-top: 20px;
-            transition: background-color 0.3s;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            margin: 0 10px;
+            border: none;
+            cursor: pointer;
         }
         
-        .back-button:hover {
-            background-color: #2d7e46;
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: #fff;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #2196F3, #0D47A1);
+            color: #fff;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .btn i {
+            margin-right: 12px;
+            font-size: 1.2rem;
         }
         
         footer {
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            background-color: #2c3e50;
-            color: white;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            margin-top: 80px;
+            border-top: 1px solid rgba(76, 175, 80, 0.3);
+            position: relative;
+        }
+        
+        footer p {
+            color: #A5D6A7;
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .footer-highlight {
+            color: #4CAF50;
+            font-weight: bold;
         }
         
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.4rem;
             }
             
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.7rem;
             }
             
-            .content-section {
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+                margin: 5px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .header-content {
                 padding: 20px;
             }
         }
+        
+        /* Animacje */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="Logo" class="logo">
+        <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/150px-Tux.svg.png" alt="Linux Logo" class="logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Strona Główna</a>
+            <a href="praktyka-linux.html"><i class="fas fa-terminal"></i> Praktyka Linux</a>
+            <a href="praktyka-windows.html"><i class="fab fa-windows"></i> Praktyka Windows</a>
+        </div>
     </header>
     
     <div class="container">
-        <h1><i class="fab fa-linux"></i> INF02 Teoria Linux - Polecenia</h1>
+        <div class="header-content">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/150px-Tux.svg.png" alt="Tux" class="tux-logo">
+            <h1><i class="fab fa-linux"></i> INF02 Teoria Linux</h1>
+            <p class="subtitle">Kompendium wiedzy o systemie Linux - podstawowe polecenia i zaawansowane techniki administracji serwerem</p>
+        </div>
         
-        <div class="content-section">
-            <h2>Podstawowe polecenia Linux - cz.1</h2>
+        <!-- Sekcja Podstawowe polecenia -->
+        <div class="content-section fade-in">
+            <h2><i class="fas fa-terminal"></i> Podstawowe polecenia Linux - cz.1</h2>
             
-            <div class="command">
-                <strong>man</strong> - wyświetla pomoc do wybranego polecenia
-                <div class="command-example">Przykład: man ls</div>
-            </div>
-            <div class="command">
-                <strong>ln -s (nazwa katalogu) (nazwa dowiązania)</strong> - tworzy dowiązanie symboliczne
-            </div>
-            <div class="command">
-                <strong>pwd</strong> - wyświetla lokalizację w której jesteśmy
-            </div>
-            
-            <div class="command">
-                <strong>cd ..</strong> - wychodzimy z katalogu
-            </div>
-            
-            <div class="command">
-                <strong>cd administrator</strong> - wchodzimy na katalog administratora
-            </div>
-            
-            <div class="command">
-                <strong>cd /</strong> - wychodzimy ze wszystkiego
-            </div>
-            
-            <div class="command">
-                <strong>cd ~</strong> - wracamy do podstaw np /home
-            </div>
-            
-            <div class="command">
-                <strong>ls</strong> - wyświetla katalogi i foldery oraz pliki
-            </div>
-            
-            <div class="command">
-                <strong>ls -la</strong> - lista katalogów
-            </div>
-            
-            <div class="command">
-                <strong>mkdir</strong> - tworzenie katalogu
-            </div>
-            
-            <div class="command">
-                <strong>rmdir (nazwa)</strong> - usuwa katalog (musi być pusty)
-            </div>
-            
-            <div class="command">
-                <strong>touch</strong> - tworzy plik
-            </div>
-            
-            <div class="command">
-                <strong>rm</strong> - usuwa plik
-            </div>
-            
-            <div class="command">
-                <strong>rm -r (nazwa)</strong> - usuwa katalog razem z zawartością
-            </div>
-            
-            <div class="command">
-                <strong>cat (nazwa pliku)</strong> - wyświetla zawartość i komendy które były używane w tym pliku
-            </div>
-            
-            <div class="command">
-                <strong>cp (nazwa pliku) (dokąd)</strong> - kopiowanie pliku
-            </div>
-            
-            <div class="command">
-                <strong>mv</strong> - pozwala zmienić nazwę jak i przenieść plik
-            </div>
-            
-            <div class="command">
-                <strong>sudo cfdisk</strong> - partycje dysków itd
-            </div>
-            
-            <div class="command">
-                <strong>fdisk</strong> - to samo co cfdisk lecz więcej opcji
-            </div>
-            
-            <div class="command">
-                <strong>sudo fdisk /dev/sda</strong> - zarządzanie dyskiem
-            </div>
-            
-            <div class="command">
-                <strong>sudo mkfs.ext4 (nazwa dysku)</strong> - zmienia system plików dysku
-            </div>
-            
-            <div class="command">
-                <strong>sudo chown (user):(grupa) (katalog)</strong> - zmiana właściciela i grupy katalogu
+            <div class="command-grid">
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-book"></i> man</div>
+                    <div class="command-desc">Wyświetla pomoc do wybranego polecenia</div>
+                    <div class="command-example">Przykład: man ls</div>
+                </div>
+                
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-link"></i> ln -s</div>
+                    <div class="command-desc">Tworzy dowiązanie symboliczne</div>
+                    <div class="command-example">ln -s (nazwa katalogu) (nazwa dowiązania)</div>
+                </div>
+                
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-map-marker-alt"></i> pwd</div>
+                    <div class="command-desc">Wyświetla lokalizację w której jesteśmy</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-sign-out-alt"></i> cd ..</div>
+                    <div class="command-desc">Wychodzimy z katalogu</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-sign-in-alt"></i> cd administrator</div>
+                    <div class="command-desc">Wchodzimy na katalog administratora</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-home"></i> cd /</div>
+                    <div class="command-desc">Wychodzimy ze wszystkiego (katalog główny)</div>
+                </div>
+                
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-home"></i> cd ~</div>
+                    <div class="command-desc">Wracamy do katalogu domowego</div>
+                </div>
+                
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-list"></i> ls</div>
+                    <div class="command-desc">Wyświetla katalogi i foldery oraz pliki</div>
+                </div>
+                
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-list-alt"></i> ls -la</div>
+                    <div class="command-desc">Lista katalogów ze szczegółami</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-folder-plus"></i> mkdir</div>
+                    <div class="command-desc">Tworzenie katalogu</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-folder-minus"></i> rmdir (nazwa)</div>
+                    <div class="command-desc">Usuwa katalog (musi być pusty)</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-file"></i> touch</div>
+                    <div class="command-desc">Tworzy plik</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-trash"></i> rm</div>
+                    <div class="command-desc">Usuwa plik</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-trash-alt"></i> rm -r (nazwa)</div>
+                    <div class="command-desc">Usuwa katalog razem z zawartością</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-file-alt"></i> cat (nazwa pliku)</div>
+                    <div class="command-desc">Wyświetla zawartość pliku</div>
+                </div>
+                
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-copy"></i> cp (nazwa pliku) (dokąd)</div>
+                    <div class="command-desc">Kopiowanie pliku</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-arrows-alt"></i> mv</div>
+                    <div class="command-desc">Pozwala zmienić nazwę lub przenieść plik</div>
+                </div>
+                
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-hdd"></i> sudo cfdisk</div>
+                    <div class="command-desc">Narzędzie do zarządzania partycjami dysków</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-hdd"></i> fdisk</div>
+                    <div class="command-desc">Zaawansowane narzędzie do zarządzania partycjami</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-hdd"></i> sudo fdisk /dev/sda</div>
+                    <div class="command-desc">Zarządzanie dyskiem /dev/sda</div>
+                </div>
+                
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-file-signature"></i> sudo mkfs.ext4 (nazwa dysku)</div>
+                    <div class="command-desc">Zmienia system plików dysku na ext4</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-user-cog"></i> sudo chown (user):(grupa) (katalog)</div>
+                    <div class="command-desc">Zmienia właściciela i grupę katalogu</div>
+                </div>
             </div>
         </div>
         
-        <div class="content-section">
-            <h2>Konfiguracja Linux Server - cz.2</h2>
+        <!-- Sekcja Konfiguracja Linux Server -->
+        <div class="content-section fade-in">
+            <h2><i class="fas fa-server"></i> Konfiguracja Linux Server - cz.2</h2>
             
-            <div class="command">
-                <strong>lsb_release -d</strong> - sprawdzenie nazwy dystrybucji
+            <div class="command-grid">
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-info-circle"></i> lsb_release -d</div>
+                    <div class="command-desc">Sprawdzenie nazwy dystrybucji</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-file"></i> echo "nazwa dystrybucji:" > SO</div>
+                    <div class="command-desc">Tworzy plik SO z nagłówkiem</div>
+                </div>
+                
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-copy"></i> lsb_release -d >> SO</div>
+                    <div class="command-desc">Dopisuje nazwę dystrybucji do pliku SO</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-microchip"></i> uname --help</div>
+                    <div class="command-desc">Wyświetla pomoc dla polecenia uname</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-code-branch"></i> uname -rv</div>
+                    <div class="command-desc">Wyświetla wersję jądra i datę jego wydania</div>
+                </div>
+                
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-file-medical"></i> echo "wersja jądra:" >> SO</div>
+                    <div class="command-desc">Dopisuje nagłówek do pliku SO</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-laptop"></i> uname -m</div>
+                    <div class="command-desc">Wyświetla architekturę systemu</div>
+                </div>
             </div>
             
-            <div class="command">
-                <strong>echo "nazwa dystrybucji:" > SO</strong> - utworzy plik SO
+            <h3><i class="fas fa-microchip"></i> Procesor</h3>
+            
+            <div class="command-grid">
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-microchip"></i> lscpu</div>
+                    <div class="command-desc">Wyświetla informacje o procesorze</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-filter"></i> lscpu | grep "Model name"</div>
+                    <div class="command-desc">Wyświetla model procesora</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-file"></i> lscpu | grep "Model name" > CPU</div>
+                    <div class="command-desc">Zapisuje model procesora do pliku CPU</div>
+                </div>
+                
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-tachometer-alt"></i> lscpu | grep "GHz" >> CPU</div>
+                    <div class="command-desc">Dopisuje taktowanie procesora do pliku CPU</div>
+                </div>
             </div>
             
-            <div class="command">
-                <strong>lsb_release -d >> SO</strong> - skopiuje zawartość pliku do pliku SO
+            <div class="note fade-in delay-2">
+                <div class="note-title"><i class="fas fa-exclamation-triangle"></i> UWAGA!</div>
+                <div class="note-content">
+                    Jeśli potrzebujemy innych wartości jak pamięć cache L1 lub L2 wpisujemy po komendzie grep w znacznikach L1 bądź L2
+                </div>
             </div>
             
-            <div class="note">
-                <div class="note-title">UWAGA!</div>
-                Jeśli chcemy sprawdzić czy na pewno wykonaliśmy powyższe czynności dobrze wpisujemy:<br>
-                <strong>nano SO</strong><br>
-                W ten sposób wyświetli nam się zawartość pliku SO
+            <h3><i class="fas fa-memory"></i> Pamięć RAM</h3>
+            
+            <div class="command-grid">
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-memory"></i> sudo lshw -c memory</div>
+                    <div class="command-desc">Wyświetla informacje o pamięci RAM</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-filter"></i> sudo lshw -c memory | grep GiB > RAM</div>
+                    <div class="command-desc">Zapisuje pojemność RAM do pliku</div>
+                </div>
             </div>
             
-            <div class="command">
-                <strong>uname --help</strong> - wyświetli przystawki które pomogą nam sprawdzić wersję jądra systemu itd.
+            <h3><i class="fas fa-microchip"></i> Płyta główna</h3>
+            
+            <div class="command-grid">
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-circuit-board"></i> sudo dmidecode -t baseboard</div>
+                    <div class="command-desc">Wyświetla informacje o płycie głównej</div>
+                </div>
+                
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-industry"></i> sudo dmidecode -t baseboard | grep Manufacturer > MAINBOARD</div>
+                    <div class="command-desc">Zapisuje producenta płyty głównej do pliku</div>
+                </div>
+                
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-barcode"></i> sudo dmidecode -t baseboard | grep Serial >> MAINBOARD</div>
+                    <div class="command-desc">Dopisuje numer seryjny płyty do pliku</div>
+                </div>
             </div>
             
-            <div class="command">
-                <strong>uname -rv</strong> - wyświetla wersję jądra i datę jego wydania.
+            <h3><i class="fas fa-hdd"></i> Operacje na dyskach</h3>
+            
+            <div class="command-grid">
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-hdd"></i> lsblk</div>
+                    <div class="command-desc">Wyświetla dostępne dyski</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-usb"></i> sudo mount /dev/sdb1 /mnt/pen</div>
+                    <div class="command-desc">Montuje dysk (np. pendrive) do katalogu /mnt/pen</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-copy"></i> sudo cp SO /mnt/pen</div>
+                    <div class="command-desc">Kopiuje pliki na zamontowany dysk</div>
+                </div>
             </div>
             
-            <div class="command">
-                <strong>echo "wersja jądra:" >> SO</strong> - dodaje nagłówek do pliku SO
+            <h3><i class="fas fa-cogs"></i> Konfiguracja dysku</h3>
+            
+            <div class="command-grid">
+                <div class="command-card fade-in delay-1">
+                    <div class="command-title"><i class="fas fa-hdd"></i> sudo blkid >> /etc/fstab</div>
+                    <div class="command-desc">Dodaje UUID dysku do fstab</div>
+                </div>
             </div>
             
-            <div class="note">
-                <div class="note-title">UWAGA!</div>
-                NIE WPISUJEMY POJEDYNCZEGO ZNAKU WIĘKSZOŚCI, W PRZECIWNYM RAZIE NADPISZEMY NASZ PLIK SO
+            <div class="note fade-in delay-2">
+                <div class="note-title"><i class="fas fa-info-circle"></i> Format wpisu w fstab</div>
+                <div class="note-content">
+                    <strong>UUID (NAZWA_KATALOGU) (FORMAT) (PARAMETR np. nofail)</strong>
+                </div>
             </div>
             
-            <div class="command">
-                <strong>uname -m</strong> - architektura systemu (w Linuxie jest podpisana jako machine)
+            <h3><i class="fas fa-globe"></i> Konfiguracja Apache</h3>
+            
+            <div class="command-grid">
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-plug"></i> nano /etc/apache2/ports.conf</div>
+                    <div class="command-desc">Edycja portów (zmiana w linijce listen)</div>
+                </div>
+                
+                <div class="command-card fade-in delay-4">
+                    <div class="command-title"><i class="fas fa-cog"></i> nano /etc/apache2/sites-enabled/000-default.conf</div>
+                    <div class="command-desc">Konfiguracja witryny</div>
+                </div>
+                
+                <div class="command-card fade-in delay-5">
+                    <div class="command-title"><i class="fas fa-sync-alt"></i> sudo systemctl restart apache2</div>
+                    <div class="command-desc">Restart serwera WWW</div>
+                </div>
             </div>
             
-            <h3>Procesor</h3>
-            
-            <div class="command">
-                <strong>lscpu</strong> - informacje o procesorze
+            <div class="note fade-in delay-1">
+                <div class="note-title"><i class="fas fa-info-circle"></i> Zmiana katalogu źródłowego witryny</div>
+                <div class="note-content">
+                    <strong>DocumentRoot (nazwa_katalogu)</strong>
+                </div>
             </div>
             
-            <div class="command">
-                <strong>lscpu | grep "Model name"</strong> - wyświetli model procesora
-            </div>
+            <h3><i class="fas fa-lock"></i> Polityka haseł</h3>
             
-            <div class="command">
-                <strong>lscpu | grep "Model name" > CPU</strong> - utworzy plik CPU
-            </div>
-            
-            <div class="command">
-                <strong>lscpu | grep "GHz" >> CPU</strong> - informacja o taktowaniu procesora
-            </div>
-            
-            <div class="note">
-                <div class="note-title">UWAGA!</div>
-                JEŚLI POTRZEBUJEMY INNYCH WARTOŚCI JAK PAMIĘĆ CACHE L1 LUB L2 WPISUJEMY PO KOMENDZIE GREP W ZNACZNIKACH L1 BĄDŹ L2
-            </div>
-            
-            <h3>Pamięć RAM</h3>
-            
-            <div class="command">
-                <strong>sudo lshw -c memory</strong> - wyświetla informacje o kościach w bankach pamięci
-            </div>
-            
-            <div class="command">
-                <strong>sudo lshw -c memory | grep GiB > RAM</strong> - zapisuje pojemność RAM do pliku
-            </div>
-            
-            <h3>Płyta główna</h3>
-            
-            <div class="command">
-                <strong>sudo dmidecode -t baseboard</strong> - wyświetla info o płycie głównej
-            </div>
-            
-            <div class="command">
-                <strong>sudo dmidecode -t baseboard | grep Manufacturer > MAINBOARD</strong> - producent płyty głównej
-            </div>
-            
-            <div class="command">
-                <strong>sudo dmidecode -t baseboard | grep Serial >> MAINBOARD</strong> - numer seryjny płyty
-            </div>
-            
-            <div class="command">
-                <strong>lsblk</strong> - wyświetla dostępne dyski
-            </div>
-            
-            <div class="command">
-                <strong>sudo mount /dev/sdb1 /mnt/pen</strong> - montowanie dysku (np. pendrive'a)
-            </div>
-            
-            <div class="command">
-                <strong>sudo cp SO /mnt/pen</strong> - kopiowanie plików na zamontowany dysk
-            </div>
-            
-            <h3>Konfiguracja dysku</h3>
-            
-            <div class="command">
-                <strong>sudo blkid >> /etc/fstab</strong> - dodanie UUID dysku do fstab
-            </div>
-            
-            <div class="note">
-                Format wpisu w fstab:<br>
-                <strong>UUID (NAZWA_KATALOGU) (FORMAT) (PARAMETR np. nofail)</strong>
-            </div>
-            
-            <h3>Konfiguracja Apache</h3>
-            
-            <div class="command">
-                <strong>nano /etc/apache2/ports.conf</strong> - edycja portów (zmiana w linijce listen)
-            </div>
-            
-            <div class="command">
-                <strong>nano /etc/apache2/sites-enabled/000-default.conf</strong> - konfiguracja witryny
-            </div>
-            
-            <div class="note">
-                Zmiana katalogu źródłowego witryny:<br>
-                <strong>DocumentRoot (nazwa_katalogu)</strong>
-            </div>
-            
-            <div class="command">
-                <strong>sudo systemctl restart apache2</strong> - restart serwera WWW
-            </div>
-            
-            <h3>Polityka haseł</h3>
-            
-            <div class="command">
-                <strong>chage --help</strong> - wyświetla opcje zarządzania hasłami
-            </div>
-            
-            <div class="command">
-                <strong>sudo passwd (nazwa_uzytkownika)</strong> - zmiana hasła dla użytkownika
+            <div class="command-grid">
+                <div class="command-card fade-in delay-2">
+                    <div class="command-title"><i class="fas fa-key"></i> chage --help</div>
+                    <div class="command-desc">Wyświetla opcje zarządzania hasłami</div>
+                </div>
+                
+                <div class="command-card fade-in delay-3">
+                    <div class="command-title"><i class="fas fa-user-lock"></i> sudo passwd (nazwa_uzytkownika)</div>
+                    <div class="command-desc">Zmienia hasło dla użytkownika</div>
+                </div>
             </div>
         </div>
         
-        <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Powrót do strony głównej</a>
+        <div class="btn-container">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i> Strona główna
+            </a>
+            <a href="praktyka-linux.html" class="btn btn-secondary">
+                <i class="fas fa-terminal"></i> Praktyka Linux
+            </a>
+        </div>
     </div>
     
     <footer>
-        <p>&copy; Stronka do użytku publicznego. Uczniowska (<b> NIE</b> Oficjalna) strona technikum Im. Gen. Hallera w Owidzu.</p>
+        <p>Stronka do użytku publicznego. Uczniowska (<span class="footer-highlight">NIE</span> Oficjalna) strona technikum Im. Gen. Hallera w Owidzu.</p>
     </footer>
+    
+    <script>
+        // Funkcja do animacji pojawiania się elementów
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ustawienia początkowe dla animacji
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+            });
+            
+            // Obserwator do animacji
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            // Obserwuj wszystkie elementy z klasą fade-in
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+        });
+    </script>
 </body>
 </html>
